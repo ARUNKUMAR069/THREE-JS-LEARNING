@@ -26,9 +26,11 @@ let helper = new THREE.DirectionalLightHelper(directionalLight,1);
 scene.add(helper);
 
 
-let pointLight = new THREE.PointLight("white", 5, 10, 2);
+let pointLight = new THREE.PointLight("white", 10, 5, 10);
 pointLight.position.set(1, 1, 1);
 scene.add(pointLight);
+let helper2 = new THREE.PointLightHelper(pointLight,1);
+scene.add(helper2);
 
 
 
@@ -65,6 +67,30 @@ let clock = new THREE.Clock();
 
 // Create GUI
 const gui = new GUI();
+// Add controls for directional light
+const directionalLightFolder = gui.addFolder('Directional Light');
+directionalLightFolder.add(directionalLight, 'intensity', 0, 10);
+directionalLightFolder.add(directionalLight.position, 'x', -10, 10);
+directionalLightFolder.add(directionalLight.position, 'y', -10, 10);
+directionalLightFolder.add(directionalLight.position, 'z', -10, 10);
+
+// Add controls for point light
+const pointLightFolder = gui.addFolder('Point Light');
+pointLightFolder.add(pointLight, 'intensity', 0, 20);
+pointLightFolder.add(pointLight.position, 'x', -5, 5);
+pointLightFolder.add(pointLight.position, 'y', -5, 5);
+pointLightFolder.add(pointLight.position, 'z', -5, 5);
+pointLightFolder.add(pointLight, 'distance', 0, 20);
+pointLightFolder.add(pointLight, 'decay', 0, 10);
+
+// Add color controls for both lights
+directionalLightFolder.addColor(directionalLight, 'color');
+pointLightFolder.addColor(pointLight, 'color');
+
+// Add visibility toggles for light helpers
+const helperFolder = gui.addFolder('Light Helpers');
+helperFolder.add(helper, 'visible').name('Directional Light Helper');
+helperFolder.add(helper2, 'visible').name('Point Light Helper');
 
 // Add controls for material properties
 const materialFolder = gui.addFolder('Material');
